@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>사용자 프로필 시스템</title>
+    <style>
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        margin: 0;
+        padding: 0;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .container {
+        background: white;
+        border-radius: 20px;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        padding: 40px;
+        text-align: center;
+        max-width: 600px;
+        width: 90%;
+      }
+      h1 {
+        color: #333;
+        margin-bottom: 20px;
+        font-size: 2.5em;
+      }
+      .message {
+        color: #666;
+        font-size: 1.2em;
+        margin-bottom: 30px;
+        line-height: 1.6;
+      }
+      .btn {
+        display: inline-block;
+        padding: 12px 30px;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        text-decoration: none;
+        border-radius: 25px;
+        font-weight: bold;
+        transition: transform 0.3s ease;
+        margin: 10px;
+      }
+      .btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+      }
+      .features {
+        margin-top: 40px;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 20px;
+      }
+      .feature {
+        padding: 20px;
+        background: #f8f9fa;
+        border-radius: 10px;
+        border-left: 4px solid #667eea;
+      }
+      .feature h3 {
+        color: #333;
+        margin-bottom: 10px;
+      }
+      .feature p {
+        color: #666;
+        font-size: 0.9em;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>👤 사용자 프로필 시스템</h1>
+      <div class="message" th:text="${message}">환영 메시지</div>
+
+      <div>
+        <a href="/profile" class="btn">프로필 보기</a>
+        <a href="/users" class="btn">사용자 목록</a>
+      </div>
+
+      <div class="features">
+        <div class="feature">
+          <h3>🔐 안전한 인증</h3>
+          <p>보안이 강화된 사용자 인증 시스템</p>
+        </div>
+        <div class="feature">
+          <h3>📊 프로필 관리</h3>
+          <p>사용자 정보를 효율적으로 관리</p>
+        </div>
+        <div class="feature">
+          <h3>⚡ 빠른 성능</h3>
+          <p>Spring Boot 기반의 고성능 웹 애플리케이션</p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

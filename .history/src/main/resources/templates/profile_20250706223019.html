@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>사용자 프로필</title>
+    <style>
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        margin: 0;
+        padding: 20px;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        min-height: 100vh;
+      }
+      .container {
+        max-width: 800px;
+        margin: 0 auto;
+        background: white;
+        border-radius: 20px;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+      }
+      .header {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        padding: 30px;
+        text-align: center;
+      }
+      .header h1 {
+        margin: 0;
+        font-size: 2.5em;
+      }
+      .content {
+        padding: 40px;
+      }
+      .profile-section {
+        margin-bottom: 30px;
+      }
+      .profile-section h2 {
+        color: #333;
+        border-bottom: 2px solid #667eea;
+        padding-bottom: 10px;
+        margin-bottom: 20px;
+      }
+      .form-group {
+        margin-bottom: 20px;
+      }
+      .form-group label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: bold;
+        color: #333;
+      }
+      .form-group input,
+      .form-group textarea {
+        width: 100%;
+        padding: 12px;
+        border: 2px solid #e1e5e9;
+        border-radius: 8px;
+        font-size: 16px;
+        transition: border-color 0.3s ease;
+        box-sizing: border-box;
+      }
+      .form-group input:focus,
+      .form-group textarea:focus {
+        outline: none;
+        border-color: #667eea;
+      }
+      .btn {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        padding: 12px 30px;
+        border: none;
+        border-radius: 25px;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: transform 0.3s ease;
+        margin-right: 10px;
+      }
+      .btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+      }
+      .btn-secondary {
+        background: #6c757d;
+      }
+      .back-link {
+        display: inline-block;
+        margin-top: 20px;
+        color: #667eea;
+        text-decoration: none;
+        font-weight: bold;
+      }
+      .back-link:hover {
+        text-decoration: underline;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <h1 th:text="${title}">사용자 프로필</h1>
+      </div>
+
+      <div class="content">
+        <form action="/profile/save" method="post">
+          <div class="profile-section">
+            <h2>기본 정보</h2>
+            <div class="form-group">
+              <label for="name">이름</label>
+              <input
+                type="text"
+                id="name"
+                name="name"
+                placeholder="이름을 입력하세요"
+              />
+            </div>
+            <div class="form-group">
+              <label for="email">이메일</label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                placeholder="이메일을 입력하세요"
+              />
+            </div>
+            <div class="form-group">
+              <label for="phone">전화번호</label>
+              <input
+                type="tel"
+                id="phone"
+                name="phone"
+                placeholder="전화번호를 입력하세요"
+              />
+            </div>
+          </div>
+
+          <div class="profile-section">
+            <h2>개인 정보</h2>
+            <div class="form-group">
+              <label for="birthdate">생년월일</label>
+              <input type="date" id="birthdate" name="birthdate" />
+            </div>
+            <div class="form-group">
+              <label for="address">주소</label>
+              <textarea
+                id="address"
+                name="address"
+                rows="3"
+                placeholder="주소를 입력하세요"
+              ></textarea>
+            </div>
+          </div>
+
+          <div class="profile-section">
+            <h2>소개</h2>
+            <div class="form-group">
+              <label for="bio">자기소개</label>
+              <textarea
+                id="bio"
+                name="bio"
+                rows="5"
+                placeholder="자기소개를 입력하세요"
+              ></textarea>
+            </div>
+          </div>
+
+          <div style="text-align: center">
+            <button type="submit" class="btn">프로필 저장</button>
+            <button type="button" class="btn btn-secondary">취소</button>
+          </div>
+        </form>
+
+        <div style="text-align: center; margin-top: 30px">
+          <a href="/" class="back-link">← 홈으로 돌아가기</a>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
