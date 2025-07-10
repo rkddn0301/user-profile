@@ -2,12 +2,12 @@ package com.example.user_profile.controller;
 
 import com.example.user_profile.service.PointChargeService;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.Map;
 
+// 포인트 충전 컨트롤러
 @RestController
 @RequestMapping("/api/points")
 public class PointChargeController {
@@ -18,29 +18,29 @@ public class PointChargeController {
         this.pointChargeService = pointChargeService;
     }
 
-    // 토스페이먼츠 결제 승인(Confirm) API 
-     @PostMapping("/toss/confirm")
+    // 토스페이먼츠 결제 승인(Confirm) API
+    @PostMapping("/toss/confirm")
     public ResponseEntity<?> confirmTossPayment(@RequestBody Map<String, Object> request) {
-       
+
         // 필수값 체크
-        if (!request.containsKey("paymentKey") || !request.containsKey("orderId") || !request.containsKey("amount") || !request.containsKey("userNo")) {
-  
+        if (!request.containsKey("paymentKey") || !request.containsKey("orderId") || !request.containsKey("amount")
+                || !request.containsKey("userNo")) {
+
+            // 400 오류 발생 시
             return ResponseEntity.badRequest().body(Map.of(
-                "error", "결제 승인 실패",
-                "message", "필수 파라미터(paymentKey, orderId, amount, userNo)가 누락되었습니다."
-            ));
+                    "code", "INVALID_REQUEST",
+                    "message", "잘못된 요청입니다."));
         }
         try {
-           
-            return pointChargeService.confirmTossPaymentMock(request);
+
+            return pointChargeService.confirmTossPayment(request);
         } catch (Exception e) {
 
+            // 서버 500 오류 발생 시
             return ResponseEntity.internalServerError().body(Map.of(
-                "error", "결제 승인 실패",
-                "message", e.getMessage()
-            ));
+                    "code", "UNKNOWN_PAYMENT_ERROR",
+                    "message", "결제에 실패했어요. 같은 문제가 반복된다면 은행이나 카드사로 문의해주세요."));
         }
-    } 
-
+    }
 
 }

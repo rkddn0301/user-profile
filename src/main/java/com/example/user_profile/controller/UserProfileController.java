@@ -9,6 +9,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
 
+// 회원 프로필 컨트롤러
 @RestController
 @RequestMapping("/api/profiles")
 public class UserProfileController {
@@ -33,4 +34,4 @@ public class UserProfileController {
         return result ? "success" : "not found";
     }
 
-} 
+}
