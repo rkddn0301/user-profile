@@ -24,14 +24,132 @@
 
 ## 주요 기능 및 API 엔드포인트
 
-### 회원 프로필
+### 회원 프로필 목록 조회
 
 - `GET /api/profiles` - 회원 프로필 목록 조회
+
+#### 정렬(sorting) 가능한 필드
+
+- `userName` : 회원 이름
+- `viewCount` : 조회수
+- `createdAt` : 등록일
+
+정렬 예시:
+- `?sort=userName,asc` : 회원 이름 오름차순
+- `?sort=viewCount,desc` : 조회수 내림차순
+- `?sort=createdAt,desc` : 등록일 최신순
+
+#### 예시: 프로필 목록 조회 요청/응답
+
+요청:
+
+```
+GET /api/profiles?page=0&size=5&sort=userName,asc
+```
+
+응답(JSON):
+
+```json
+{
+  "content": [
+    {
+      "userName": "Alice",
+      "viewCount": 82,
+      "createdAt": "2024-06-23T19:00:00.000+00:00"
+    },
+    {
+      "userName": "Bob",
+      "viewCount": 92,
+      "createdAt": "2024-06-24T20:00:00.000+00:00"
+    },
+    {
+      "userName": "Charlie",
+      "viewCount": 99,
+      "createdAt": "2024-06-25T21:00:00.000+00:00"
+    },
+    {
+      "userName": "강민수",
+      "viewCount": 10,
+      "createdAt": "2024-06-01T10:00:00.000+00:00"
+    },
+    {
+      "userName": "김나영",
+      "viewCount": 25,
+      "createdAt": "2024-06-02T09:30:00.000+00:00"
+    }
+  ],
+  "pageable": {
+    "pageNumber": 0,
+    "pageSize": 5,
+    "sort": {
+      "empty": false,
+      "sorted": true,
+      "unsorted": false
+    },
+    "offset": 0,
+    "paged": true,
+    "unpaged": false
+  },
+  "last": false,
+  "totalPages": 6,
+  "totalElements": 30,
+  "size": 5,
+  "number": 0,
+  "sort": {
+    "empty": false,
+    "sorted": true,
+    "unsorted": false
+  },
+  "first": true,
+  "numberOfElements": 5,
+  "empty": false
+}
+```
+
+---
+
+### 회원 프로필 상세 조회수 업데이트
+
 - `POST /api/profiles/{userNo}/view` - 회원 프로필 상세 조회수 업데이트
+
+- {userNo} : 조회수를 증가시킬 회원의 고유 번호(path variable)
+
+#### 예시: 프로필 상세 조회수 업데이트 요청/응답
+
+조회수 변경 전(DB 상태):
+
+<img width="443" height="44" alt="image" src="https://github.com/user-attachments/assets/ba27432d-1b01-4fb5-890d-db0e4defe7cc" />
+
+
+요청: 
+
+```
+POST /api/profiles/1/view
+```
+
+응답(String):
+
+```
+success
+```
+
+조회수 변경 후(DB 상태):
+
+<img width="459" height="49" alt="image" src="https://github.com/user-attachments/assets/76342739-59c4-41a5-ba46-08cf74c4ae0c" />
+
+
+***
 
 ### 포인트 충전
 
 - `POST /api/points/toss/confirm` - 토스페이먼츠 결제 승인
+
+#### 결제 승인 및 포인트 적립 흐름
+
+1. 클라이언트가 토스페이먼츠 결제 승인 요청을 보냄
+2. 서버가 결제 승인 및 포인트 적립 처리
+3. 결과를 응답(JSON)으로 반환
+4. DB(POINT_CHARGE)에 충전된 포인트(AMOUNT) 저장
 
 #### 예시: 포인트 충전 요청/응답
 
@@ -59,7 +177,7 @@
 }
 ```
 
-응답 후 포인트 충전 확인(TABLE : POINT_CHARGE):
+응답 후 포인트 충전 확인(DB 상태):
 
 <img width="182" height="47" alt="image" src="https://github.com/user-attachments/assets/4e200bea-b5b4-4cde-a9cc-5c630c9af9c3" />
 
